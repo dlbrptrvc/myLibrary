@@ -1,0 +1,10 @@
+.row {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    width:500px;
+}
+
+.row:hover {
+    background-color: aquamarine;
+}
