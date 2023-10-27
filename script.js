@@ -3,7 +3,7 @@ class Book {
         this.title = title || 'Unknown'
         this.author = author || 'Unknown'
         this.published = published || 'Unknown'
-        this.acquired = acquired || new Date().getFullYear().toString()
+        this.acquired = acquired || new Date().toLocaleDateString('en-GB')
         this.location = location || 'Home'
     }
 
@@ -13,23 +13,23 @@ class Book {
 }
 
 let MyLib = {
-    num : 0,
-    books : {},
+    selected : null,
+    books : [],
     findBook: function(words,searchBy) {
         let results = []
         if (searchBy!=='all') {
             searchBy == searchBy || 'title'
-            Object.entries(this.books).forEach((entry)=>{
-                if (entry[1][searchBy].includes(words)) {
-                    results.push(entry[0])
+            this.books.forEach((book,i)=>{
+                if (book[searchBy].includes(words)) {
+                    results.push(i)
                 }
             })
         } else {
             Object.getOwnPropertyNames(new Book).forEach((property)=>{
                 searchBy = property
-                Object.entries(this.books).forEach((entry)=>{
-                    if (entry[1][searchBy].includes(words)) {
-                        results.push(entry[0])
+                this.books.forEach((book,i)=>{
+                    if (book[searchBy].includes(words)) {
+                        results.push(i)
                     }
                 })
             })
@@ -37,14 +37,28 @@ let MyLib = {
         return results
     },
     addBook: function(book){
-        MyLib.books[this.num]=book
-        this.num++
+        this.books.push(book)
     },
     removeBook: function(id){
-        delete MyLib.books[id]
+        this.books.splice(id,1)
     },
-    editBook: function(id){
-        return MyLib.books[id]
+    getBook: function(id){
+        this.selected = id
+        return this.books[id]
+    },
+    save: function(){
+        localStorage.clear()
+        this.books.forEach((book,i)=>{
+            localStorage.setItem(i,book.title+'%'+book.author+'%'+book.published+'%'+book.acquired+'%'+book.location)
+        })
+    },
+    load: function(){
+        let i = 0
+        while (localStorage.getItem(i)) {
+            let fullInfo = localStorage.getItem(i).split('%')
+            this.addBook(new Book(...fullInfo))
+            i++
+        }
     }
 }
 

@@ -7,6 +7,60 @@
     <title>My Library</title>
 </head>
 <body>
+    <div id="editMenu">
+        <form action="#" id="bookInfo"></form>
+        <div class="editBar">
+            <div class="menuBtn">Save</div>
+            <div class="menuBtn">Cancel</div>
+        </div>
+        
+    </div>
+    <div class="preheader">
+        <div id="toggleTheme">theme</div>
+    </div>
+    <div class="main">
+
+        <div class="container">
+            <div class="header">My Library</div>
+            <div class="topBar">
+                <div class="sortBar">
+                    <div class="menuText">Sort by:</div>
+                    <select name="" id="sortOptions">
+                    </select>
+                    <div class="menuText">Order:</div>
+                    <select name="" id="sortOrder">
+                        <option value="ascending">Ascending</option>
+                        <option value="descending">Descending</option>
+                    </select>
+                </div>
+                <div class="displayBar">
+                    <div class="menuText">Display:</div>
+                    <select name="" id="displayStyle">
+                        <option value="list">List</option>
+                        <option value="details">Details</option>
+                        <option value="tiles">Tiles</option>
+                    </select>
+                </div>
+            </div>
+            <div class="display"></div>
+            <div class="bottomBar">
+                <div class="searchBar">
+                    <input type="text" id="searchText">
+                    <div class="menuBtn" id="searchBtn">Search</div>
+                    <div class="menuBtn" id="clearBtn">Clear</div>
+                </div>
+                <div class="buttonBar">
+                    <div class="menuBtn">Edit</div>
+                    <div class="menuBtn">Add</div>
+                    <div class="menuBtn">Remove</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="footer">footer</div>
     <script src="script.js"></script>
+    <script src="initDom.js"></script>
 </body>
 </html>
