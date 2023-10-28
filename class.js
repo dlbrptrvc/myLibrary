@@ -6,9 +6,13 @@ class Book {
         this.acquired = acquired || new Date().toLocaleDateString('en-GB')
         this.location = location || 'Home'
     }
-
-    info() {
-        return (this.title +' by '+this.author+". Pub:"+this.published+" Acq:"+this.acquired+" Currently at "+this.location)
+    info(type) {
+        type = type||'list'
+        if (type=='list') {
+            return ('<b>'+this.title +'</b> by '+this.author+". Pub:"+this.published+" Acq:"+this.acquired+" Currently at: "+this.location)
+        } else {
+            return ('<div class="tileTitle>'+this.Title+'</div><br>Author: '+this.author+'<br>Published: '+this.published+'<br>Acquired: '+this.acquired+'<br>Location: '+this.location)
+        }
     }
 }
 
@@ -62,4 +66,33 @@ let MyLib = {
     }
 }
 
-MyLib.addBook(new Book("1984","George Orwell"))
+MyLib.addBook(new Book("1984","George Orwell",1948,'27/10/2002'))
+MyLib.addBook(new Book("1999","Бранислав Пекић",'2000','28/10/2003'))
+MyLib.addBook(new Book("Tropic of Cancer","Henry Miller"))
+MyLib.addBook(new Book("ABC","Anonymous"))
+
+
+class Config {
+    constructor(theme,sortBy,sortOrder,displayType,displayedItems) {
+        this.theme = theme||'theme-a'
+        this.sortBy = sortBy||'title'
+        this.sortOrder = sortOrder||'ascending'
+        this.displayType = displayType||'list'
+        this.displayedItems = ''
+        for (let i=0;i<MyLib.books.length;i++) {
+            this.displayedItems+=i+'%'
+        }
+    }
+    save() {
+        Object.getOwnPropertyNames(new Config).forEach((property)=>{
+            localStorage.setItem(property,currentConfig[property])
+        })
+    }
+    load() {
+        Object.getOwnPropertyNames(new Config).forEach((property)=>{
+            currentConfig[property] = localStorage.getItem(property)
+        })
+    }
+}
+
+let currentConfig = new Config
